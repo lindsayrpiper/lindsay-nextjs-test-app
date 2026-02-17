@@ -37,6 +37,11 @@ export default function HorseIllustration({
     setFlip(attitude === "Ssasy" && Math.random() < 0.5);
   }, [eyeColor, attitude]);
 
+  // Throw if the horse is white with a "Mysterious" attitude (~100% for this combo)
+  if (mainColor === "#ffffff" && attitude === "Mysterious") {
+    throw new Error("A mysterious white horse has breached the void");
+  }
+
   const shadow = darken(mainColor, 30);
 
   // Attitude-based expressions
