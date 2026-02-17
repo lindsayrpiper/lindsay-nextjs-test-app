@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const ATTITUDES = ["Gentle", "Wild", "Ssasy", "Mysterious", "Goofy"];
+const ATTITUDES = ["Gentle", "Wild", "Sassy", "Mysterious", "Goofy", "Rowdy", "Anxious", "Shy", "Aloof"];
 
 export default function Customize() {
   const router = useRouter();
