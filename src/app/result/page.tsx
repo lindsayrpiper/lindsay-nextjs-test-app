@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import * as Sentry from "@sentry/nextjs";
 import HorseIllustration from "../components/HorseIllustration";
 
 export default function Result() {
@@ -23,7 +24,28 @@ export default function Result() {
     } else {
       setDisplayName(name);
     }
-  }, [name]);
+
+    // Delayed RangeError: ~18% chance, fires 2s after page load
+    const timer = setTimeout(() => {
+      if (Math.random() < 0.18) {
+        try {
+          const arr = new Array(-1);
+          console.log(arr);
+        } catch (err) {
+          Sentry.captureException(err);
+        }
+      }
+    }, 2000);
+
+    // Silently report an error for "Wild" horses
+    if (attitude === "Wild") {
+      Sentry.captureException(
+        new Error("Wild horse detected — containment protocols may be needed")
+      );
+    }
+
+    return () => clearTimeout(timer);
+  }, [name, attitude]);
 
   return (
     <div className="flex flex-col items-center gap-6 max-w-lg w-full -mt-10">

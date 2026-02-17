@@ -1,14 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import * as Sentry from "@sentry/nextjs";
 
 export default function Home() {
   const [name, setName] = useState("");
   const router = useRouter();
 
+  // Unhandled promise rejection on page load (~30% chance)
+  useEffect(() => {
+    if (Math.random() < 0.3) {
+      fetch("/api/horse-facts").then((res) => res.json());
+    }
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Randomly capture a breadcrumb that hints at chaos
+    if (Math.random() < 0.25) {
+      Sentry.captureMessage("Horse name submitted with suspicious energy", "warning");
+    }
+
     if (name.trim()) {
       router.push(`/customize?name=${encodeURIComponent(name.trim())}`);
     }
