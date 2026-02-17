@@ -25,26 +25,12 @@ export default function Result() {
       setDisplayName(name);
     }
 
-    // Delayed RangeError: ~18% chance, fires 2s after page load
-    const timer = setTimeout(() => {
-      if (Math.random() < 0.18) {
-        try {
-          const arr = new Array(-1);
-          console.log(arr);
-        } catch (err) {
-          Sentry.captureException(err);
-        }
-      }
-    }, 2000);
-
     // Silently report an error for "Wild" horses
     if (attitude === "Wild") {
       Sentry.captureException(
         new Error("Wild horse detected — containment protocols may be needed")
       );
     }
-
-    return () => clearTimeout(timer);
   }, [name, attitude]);
 
   return (
