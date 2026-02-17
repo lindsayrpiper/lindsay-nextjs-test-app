@@ -8,10 +8,11 @@ const FACTS = [
 
 export async function GET() {
   try {
+    // Removed intentional error throwing code to prevent spurious Sentry errors
     // ~50% chance this endpoint throws a server error
-    if (Math.random() < 0.5) {
-      throw new Error("Failed to load horse facts: database connection timed out");
-    }
+    // if (Math.random() < 0.5) {
+    //   throw new Error("Failed to load horse facts: database connection timed out");
+    // }
 
     // ~25% chance of a different server error
     if (Math.random() < 0.25) {
