@@ -11,13 +11,18 @@ export default function Home() {
   // Unhandled promise rejection on page load (~30% chance)
   useEffect(() => {
     if (Math.random() < 0.3) {
-      fetch("/api/horse-facts").then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        // If response is not ok, still try to parse JSON error response
-        return res.json().catch(() => ({ error: "Failed to load horse facts" }));
-      });
+      fetch("/api/horse-facts")
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          // If response is not ok, still try to parse JSON error response
+          return res.json().catch(() => ({ error: "Failed to load horse facts" }));
+        })
+        .catch((error) => {
+          // Properly handle any fetch or JSON parsing errors
+          console.error("Failed to fetch horse facts:", error);
+        });
     }
   }, []);
 
