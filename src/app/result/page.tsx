@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
 import HorseIllustration from "../components/HorseIllustration";
 import { addHorseToYearbook } from "../lib/yearbook";
@@ -16,14 +16,12 @@ export default function Result() {
   const eyeColor = searchParams.get("eyeColor") || "#3B2F2F";
   const attitude = searchParams.get("attitude") || "Gentle";
 
-  const [displayName, setDisplayName] = useState(name);
-
   useEffect(() => {
-    // ~20% chance the name renders backwards
-    if (Math.random() < 0.2) {
-      setDisplayName(name.split("").reverse().join(""));
-    } else {
-      setDisplayName(name);
+    // Silently report an error for "Wild" horses
+    if (attitude === "Wild") {
+      Sentry.captureException(
+        new Error("Wild horse detected — containment protocols may be needed")
+      );
     }
 
     // Save horse to yearbook
@@ -45,7 +43,7 @@ export default function Result() {
         />
 
         <h3 className="text-3xl font-bold text-[var(--brand)] mt-4">
-          {displayName}
+          {name}
         </h3>
         <p className="text-[var(--accent)] mt-1 capitalize">
           {attitude} spirit
