@@ -40,6 +40,10 @@ export function addHorseToYearbook(horse: Omit<HorseEntry, "id" | "createdAt">):
   };
 
   entries.push(entry);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  } catch {
+    // Storage full or unavailable — return the entry anyway
+  }
   return entry;
 }
