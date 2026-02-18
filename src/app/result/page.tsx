@@ -26,13 +26,6 @@ export default function Result() {
       setDisplayName(name);
     }
 
-    // Silently report an error for "Wild" horses
-    if (attitude === "Wild") {
-      Sentry.captureException(
-        new Error("Wild horse detected — containment protocols may be needed")
-      );
-    }
-
     // Save horse to yearbook
     addHorseToYearbook({ name, mainColor, maneColor, eyeColor, attitude });
   }, [name, attitude, mainColor, maneColor, eyeColor]);
