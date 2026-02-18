@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Build-a-Horse",
-  description: "Create your dream horse",
+  title: "Horse Yearbook",
+  description: "Happy Year of the Horse! Add your horse to the yearbook.",
 };
 
 export default function RootLayout({
@@ -29,7 +29,7 @@ export default function RootLayout({
       >
         <header className="w-full py-4 text-center border-b-2 border-[var(--accent)]">
           <h1 className="text-3xl font-bold tracking-wide text-[var(--brand)]">
-            Build-a-Horse
+            Horse Yearbook
           </h1>
         </header>
         <main className="flex flex-col items-center justify-center min-h-[calc(100vh-73px)] px-4">

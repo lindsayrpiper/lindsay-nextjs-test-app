@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Sentry from "@sentry/nextjs";
 import HorseIllustration from "../components/HorseIllustration";
+import { addHorseToYearbook } from "../lib/yearbook";
 
 export default function Result() {
   const searchParams = useSearchParams();
@@ -31,7 +32,10 @@ export default function Result() {
         new Error("Wild horse detected — containment protocols may be needed")
       );
     }
-  }, [name, attitude]);
+
+    // Save horse to yearbook
+    addHorseToYearbook({ name, mainColor, maneColor, eyeColor, attitude });
+  }, [name, attitude, mainColor, maneColor, eyeColor]);
 
   return (
     <div className="flex flex-col items-center gap-6 max-w-lg w-full -mt-10">
@@ -71,6 +75,13 @@ export default function Result() {
           Redesign
         </button>
       </div>
+
+      <button
+        onClick={() => router.push("/yearbook")}
+        className="mt-2 px-6 py-3 rounded-lg border-2 border-[var(--accent)] text-[var(--accent)] font-semibold hover:bg-[var(--accent-light)] transition-colors cursor-pointer"
+      >
+        Click to see the horse yearbook &rarr;
+      </button>
     </div>
   );
 }

@@ -46,6 +46,9 @@ export default function Home() {
         <h2 className="text-2xl font-bold text-[var(--brand)] mb-2">
           Name Your Horse
         </h2>
+        <p className="text-[var(--brand)] font-medium mb-1">
+          Happy Year of the Horse! Add your horse to the yearbook.
+        </p>
         <p className="text-[var(--accent)]">
           Every great horse needs a great name. What will yours be?
         </p>
