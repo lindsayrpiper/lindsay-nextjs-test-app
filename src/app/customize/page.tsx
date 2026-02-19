@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const ATTITUDES = ["Gentle", "Wild", "Sassy", "Mysterious", "Goofy", "Rowdy", "Anxious", "Shy", "Aloof"];
@@ -14,15 +14,8 @@ export default function Customize() {
   const [maneColor, setManeColor] = useState("#1a1a1a");
   const [eyeColor, setEyeColor] = useState("#3B2F2F");
   const [attitude, setAttitude] = useState("Gentle");
-  const [clickCount, setClickCount] = useState(0);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    setClickCount((prev) => prev + 1);
-    if (clickCount === 0 && Math.random() < 0.4) {
-      return;
-    }
 
     // TypeError: randomly try to access property on undefined (~15% chance)
     if (Math.random() < 0.15) {
@@ -41,9 +34,6 @@ export default function Customize() {
     router.push(`/result?${params.toString()}`);
   };
 
-  useEffect(() => {
-    setClickCount(0);
-  }, [mainColor, maneColor, eyeColor, attitude]);
 
   return (
     <div className="flex flex-col items-center gap-8 max-w-md w-full -mt-10">
