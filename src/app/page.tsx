@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
 import HorseYearbookLogo from "./components/HorseYearbookLogo";
+import { getNameViolation } from "./lib/nameFilter";
 
 export default function Home() {
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   // Unhandled promise rejection on page load (~30% chance)
@@ -36,6 +38,11 @@ export default function Home() {
     }
 
     if (name.trim()) {
+      const violation = getNameViolation(name);
+      if (violation) {
+        setError("Whoa there! That name contains inappropriate language. Please choose a friendlier name for your horse.");
+        return;
+      }
       router.push(`/customize?name=${encodeURIComponent(name.trim())}`);
     }
   };
@@ -59,11 +66,14 @@ export default function Home() {
         <input
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => { setName(e.target.value); setError(""); }}
           placeholder="Enter your horse's name..."
           className="w-full px-4 py-3 rounded-lg border-2 border-[var(--accent-light)] bg-white text-[var(--foreground)] text-lg focus:outline-none focus:border-[var(--brand)] transition-colors"
           autoFocus
         />
+        {error && (
+          <p className="text-red-600 text-sm font-medium -mt-2">{error}</p>
+        )}
         <button
           type="submit"
           disabled={!name.trim()}
