@@ -59,6 +59,12 @@ export default function Yearbook() {
             <p className="text-[var(--accent)] capitalize text-sm">
               {entry.attitude} spirit
             </p>
+            <button
+              onClick={() => router.push(`/horse-fam?id=${entry.id}`)}
+              className="mt-3 px-4 py-2 rounded-lg bg-[var(--brand)] text-white text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              32 et Moi
+            </button>
           </div>
         ))}
       </div>
