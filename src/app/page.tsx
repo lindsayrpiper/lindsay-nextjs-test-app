@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
+import HorseYearbookLogo from "./components/HorseYearbookLogo";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -42,7 +43,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center gap-8 max-w-md w-full -mt-20">
       <div className="text-center">
-        <p className="text-6xl mb-4">&#127918;</p>
+        <HorseYearbookLogo size={96} />
         <h2 className="text-2xl font-bold text-[var(--brand)] mb-2">
           Name Your Horse
         </h2>
