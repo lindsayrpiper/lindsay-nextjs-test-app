@@ -17,13 +17,6 @@ export default function Customize() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // TypeError: randomly try to access property on undefined (~15% chance)
-    if (Math.random() < 0.15) {
-      const horseConfig: Record<string, unknown> | undefined = undefined;
-      // @ts-expect-error intentional error for Sentry
-      console.log(horseConfig.preferences.colorMode);
-    }
-
     const params = new URLSearchParams({
       name,
       mainColor,
